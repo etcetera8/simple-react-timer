@@ -76,7 +76,7 @@ export default class Timer extends Component<Props, TimerState> {
           duration: updatedTime,
         })
       }, 1000);
-      this.timer = intervalId;
+      // this.timer = intervalId;
       this.setState({ intervalId })
     }
   }

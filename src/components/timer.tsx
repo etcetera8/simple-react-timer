@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import secondsSinceDate from './helper';
 const prettyMs = require('pretty-ms');
 
 type Props = {
@@ -44,23 +45,9 @@ export default class Timer extends Component<Props, TimerState> {
     // send pause function
   }
 
-  secondsSinceDate(startDate: Date | null | number = this.props.startDate, seconds: number | null = this.props.seconds): number {
-    if (!seconds) {
-      const todaysDate = new Date(new Date().toISOString());
-      if (startDate) {
-        const timeStart = new Date(startDate);
-        const difference = Math.abs(timeStart.getTime() - todaysDate.getTime());
-        return difference;
-      }
-    } else {
-      return seconds * 1000;
-    }
-    return 0;
-  }
-
   initTimer = (): void => {
     const { seconds } = this.props;
-    const startingTime = seconds ? seconds * 1000 : this.secondsSinceDate();
+    const startingTime = seconds ? seconds * 1000 : secondsSinceDate(this.props.startDate, this.props.seconds);
 
     this.setState({
       duration: startingTime,
@@ -68,7 +55,7 @@ export default class Timer extends Component<Props, TimerState> {
   }
 
   startTimer = () => {
-    let startTime = this.secondsSinceDate();
+    let startTime = secondsSinceDate(this.props.startDate, this.props.seconds);
     if (this.props.timerOn) {
       const intervalId = setInterval(() => {
         const updatedTime = startTime += 1000

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import secondsSinceDate from './helper';
 const prettyMs = require('pretty-ms');
 
-type Props = {
+export type Props = {
   startDate: Date | null | number;
   timerOn: boolean;
   seconds: number | null;
@@ -76,7 +76,13 @@ export default class Timer extends Component<Props, TimerState> {
   render() {
     const { duration } = this.state;
     return (
-      <section>{prettyMs(duration, { secondsDecimalDigits: 0, colonNotation: true })}</section>
+      <section
+        id="reactSimpleTimer"
+        className="react-simple-timer-wrap"
+        data-testid="reactSimpleTimer"
+      >
+        {prettyMs(duration, { secondsDecimalDigits: 0, colonNotation: true })}
+      </section>
     );
   }
 }
